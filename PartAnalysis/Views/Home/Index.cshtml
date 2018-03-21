@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script type="text/javascript">
+
+</script>
+
+<div ng-controller="HomeController" class="mainDiv ">
+    <div class="uptheme">
+
+        <div class="row selectcol ">
+
+            <div class="col-md-2" style="max-width: 170px;">
+
+
+
+                <div class="facetBx">
+                    <p class="facetBxTitle" style="">Plant Code</p>
+
+                    <div class="facetBxChld" id="plancd">
+                        <div ng-repeat="c in pbglist">
+                            <label for="chkCustomer_{{c.id}}">
+                                <input id="chkCustomer_{{c.id}}" type="checkbox" ng-model="c.Selected" />
+                                {{c.name}} ({{c.desc}})
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </div>
+            <div class="col-md-2">
+
+
+
+                <div class="facetBx">
+                    <p class="facetBxTitle" style="">Part Number</p>
+
+                    <div class="facetBxChld">
+                        <textarea id="partInput" ng-model="partarea" ng-trim="true" required="required" focus-me="{{shouldBeOpen}}"></textarea>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </div>
+
+            <div class="col-md-9" style="max-width: 1120px;">
+
+
+
+                <div class="facetBx">
+                    <p class="facetBxTitle" style="">Select Fields</p>
+
+                    <div class="facetBxChld">
+                        <div ng-repeat="c in fieldlist | filter : 'true'" style="width: 12em; float: left;">
+                            <label for="chkField_{{c.id}}">
+                                <input id="chkField_{{c.id}}" type="checkbox" ng-model="c.Selected" />
+                                {{c.alias || c.column}}
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+        <div class="row  entrycol ">
+            <div class="buttondiv" style="width:100%;padding-left:35%;margin-bottom: 5px;">
+                <button class="buttons special " id="submitBtn" ng-Click="getDetails()"> Submit</button>
+                <button class="buttons special " ng-Click="resetDetails()"> Reset</button>
+                <button class="buttons special " ng-Click="downloadExcel()" ng-disabled="downloadTableDataBtn" style="background-color:#1abc9c">
+                    <i class="fa fa-download"></i>Export
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        @Html.Partial("~/Views/Home/GridandTabs.cshtml")
+
+    </div>
+</div>

@@ -1,0 +1,68 @@
+﻿@*<div class="col-md-12">
+
+
+        <div id="grid1" ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-exporter class="grid12"
+             style="min-height:35em;max-height:50em">
+            <div class="grid-msg-overlay" ng-hide="!vm.loading">
+                <div class="msg">
+                    <span>
+                        Loading Data...
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="watermark" ng-show="!gridOptions.data.length">No data available</div>
+        </div>
+
+
+    </div>*@
+
+<div class="col-md-12">
+
+    <div class="dataloader container" ng-if="loadingstatus">
+        <strong>Loading Data</strong>
+        <img src="~/Content/Assets/ajax-loader.gif" />
+    </div>
+    <div class="container" ng-if="norecords"><strong>No Records found for this search criteria !!</strong></div>
+    <div cg-busy="{promise:getData,message:'Loading Data...'}">
+        <section style="min-height: 50em;" class="wrap">
+
+            <div ng-cloak ng-if="showgrid">
+                <md-content>
+                    <md-tabs md-selected="selectedIndex" md-border-bottom md-autoselect md-dynamic-height>
+                        <md-tab id="tab1">
+                            <md-tab-label>Part Analysis Results</md-tab-label>
+                            <md-tab-body>
+                                <div class="custom-csv-link-location"></div>
+                                <div ui-grid="gridOptions" ui-grid-pagination ui-grid-selection ui-grid-exporter ui-grid-auto-resize class="myGrid grid12" style="min-height:35em;max-height:50em">
+                                    <div class="grid-msg-overlay" ng-hide="!vm.loading">
+                                        <div class="msg">
+                                            <span>
+                                                Loading Data...
+                                                <i class="fa fa-spinner fa-spin"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="watermark" ng-show="!gridOptions.data.length">No data available</div>
+                                </div>
+                            </md-tab-body>
+                        </md-tab>
+                        <md-tab id="tab2" ng-if="disableService">
+                            <md-tab-label>Service Order</md-tab-label>
+                            <md-tab-body>
+
+                                @*<div ui-grid="serviceOrderGridOptions" ui-grid-pagination ui-grid-selection ui-grid-exporter class="myGrid">
+
+                                        <div class="watermark" ng-show="!serviceOrderGridOptions.data.length">No data available</div>
+                                    </div>*@
+                            </md-tab-body>
+                        </md-tab>
+
+
+                    </md-tabs>
+                </md-content>
+            </div>
+
+        </section>
+    </div>
+</div>
