@@ -80,9 +80,10 @@ app.controller('HomeController', function ($scope, $http, $rootScope, $mdDialog,
     //];
 
     $scope.fieldlist = [
+        { id: 3, column: 'Material Attribute', alias: '', include: true },
         { id: 1, column: 'Cost Details', alias: '', include: true },
         { id: 2, column: 'Gross Demand', alias: '', include: true },
-        { id: 3, column: 'Material Status', alias: '', include: true },
+        
         { id: 4, column: 'Planner', alias: '', include: true },
         //{ id: 5, column: 'PBG Allocation', alias: '', include: true },
         { id: 6, column: 'Commodity', alias: '', include: true },
@@ -285,7 +286,11 @@ app.controller('HomeController', function ($scope, $http, $rootScope, $mdDialog,
         console.log(checkedfields);
        // $scope.gridOptions.columnDefs = [];
         //var columnlist = [PARTColumn, Partdesccolumn, orgColumn];
+        if (checkedfields.indexOf("Material Attribute") !== -1) {
+            //columnlist.push(materialstatus_column);
 
+            $scope.selectedfields += ',materialstatus Material_Attribute '
+        };
         if (checkedfields.indexOf("Cost Details") !== -1) {
             //columnlist.push(material_costcolumn);
             //columnlist.push(stdcostcolumn);
@@ -298,11 +303,7 @@ app.controller('HomeController', function ($scope, $http, $rootScope, $mdDialog,
             //columnlist.push(gross_demand_52column);
             $scope.selectedfields += ',GrossDemand13week Gross_Demand_13_week,GrossDemand26week Gross_Demand_26_week,GrossDemand52week Gross_Demand_52_week'
         };
-        if (checkedfields.indexOf("Material Status") !== -1) {
-            //columnlist.push(materialstatus_column);
-           
-            $scope.selectedfields += ',materialstatus Material_Status '
-        };
+        
         if (checkedfields.indexOf("PBG Allocation") !== -1) {
             //columnlist.push(materialstatus_column);
 
@@ -365,6 +366,7 @@ app.controller('HomeController', function ($scope, $http, $rootScope, $mdDialog,
 
 
                     console.log(data);
+                    console.log(typeof (data));
                     $http({
                         method: 'Post',
                         url: '/api/values',
@@ -425,6 +427,7 @@ app.controller('HomeController', function ($scope, $http, $rootScope, $mdDialog,
     $scope.downloadExcel = function () {
 
         $scope.gridApi.exporter.excelExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
+       // alasql('SELECT * INTO XLSX("john.xlsx",{headers:true}) FROM ?', [$scope.gridOptions.data]);
     };
     });
 
