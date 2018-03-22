@@ -85,7 +85,7 @@ app.controller('HomeController', function ($scope, $http, $rootScope, $mdDialog,
         { id: 2, column: 'Gross Demand', alias: '', include: true },
         
         { id: 4, column: 'Planner', alias: '', include: true },
-        //{ id: 5, column: 'PBG Allocation', alias: '', include: true },
+        { id: 5, column: 'PBG Allocation', alias: '', include: true },
         { id: 6, column: 'Commodity', alias: '', include: true },
         { id: 6, column: 'Lot Size', alias: '', include: true }
 
@@ -175,23 +175,16 @@ app.controller('HomeController', function ($scope, $http, $rootScope, $mdDialog,
 
     }; 
     var PARTColumn = {
-        name: 'Part_number',
-        displayName: 'Part Number',
-        enableFiltering: false,
-        width: 150,
-        //cellTemplate: '<div ng-if="row.entity.plantcd" class="tcenter">{{row.entity.plantcd}}</div><div ng-if="!row.entity.plantcd"></div>'
-        cellTemplate: "<div class='ui-grid-cell-contents'><md-menu  md-offset='0 45' md-position-mode='target target'><md-button class='md-icon-button' ng-click='grid.appScope.openMenu($mdOpenMenu, $event)'><i class='fa fa-indent'></i></md-button><md-menu-content width='2'><md-menu-item><md-button ng-click='grid.appScope.switchTabs(row,&apos;service_order&apos;)'>Service Order </md-button></md-menu-item><md-menu-item><md-button ng-click='grid.appScope.switchTabs(row,&apos;sales_order&apos;)'>Sales Order</md-button></md-menu-item><md-menu-item><md-button ng-click='grid.appScope.switchTabs(row,&apos;NC&apos;)'>Non Conformances</md-button></md-menu-item><md-menu-item><md-button ng-click='grid.appScope.switchTabs(row,&apos;BOM&apos;)'>System BOM</md-button></md-menu-item><md-menu-item><md-button ng-click='grid.appScope.switchTabs(row,&apos;serial_num&apos;)'>Serial Number</md-button></md-menu-item></md-menu-content></md-menu><span title='{{COL_FIELD CUSTOM_FILTERS}}' ng-click='grid.appScope.showAdvanced($event, row, col)' class='partNum'>{{row.entity.materialnum}}</span></div>"
+        name: 'Part_number', displayName: 'Part Number', width: 150,
+        cellTemplate: '<div ng-if="row.entity.Part_Number" class="tcenter partNum" ng-click="grid.appScope.showAdvanced($event, row, col)">{{row.entity.Part_Number}}</div><div ng-if="!row.entity.Part_Number"></div>'
+        //cellTemplate: "<div class='ui-grid-cell-contents'><md-menu  md-offset='0 45' md-position-mode='target target'><md-button class='md-icon-button' ng-click='grid.appScope.openMenu($mdOpenMenu, $event)'><i class='fa fa-indent'></i></md-button><md-menu-content width='2'><md-menu-item><md-button ng-click='grid.appScope.switchTabs(row,&apos;service_order&apos;)'>Service Order </md-button></md-menu-item><md-menu-item><md-button ng-click='grid.appScope.switchTabs(row,&apos;sales_order&apos;)'>Sales Order</md-button></md-menu-item><md-menu-item><md-button ng-click='grid.appScope.switchTabs(row,&apos;NC&apos;)'>Non Conformances</md-button></md-menu-item><md-menu-item><md-button ng-click='grid.appScope.switchTabs(row,&apos;BOM&apos;)'>System BOM</md-button></md-menu-item><md-menu-item><md-button ng-click='grid.appScope.switchTabs(row,&apos;serial_num&apos;)'>Serial Number</md-button></md-menu-item></md-menu-content></md-menu><span title='{{COL_FIELD CUSTOM_FILTERS}}' ng-click='grid.appScope.showAdvanced($event, row, col)' class='partNum'>{{row.entity.materialnum}}</span></div>"
     };
     var orgColumn = {
         name: 'plantcd',
         displayName: 'Plant Code',
         width: 100,
         headerCellClass: $scope.highlightFilteredHeader,
-        filter: {
-            type: uiGridConstants.filter.SELECT,
-            //selectOptions: $scope.faiFilter
-        },
-        cellTemplate: '<div ng-if="row.entity.plantcd" class="tcenter">{{row.entity.plantcd}}</div><div ng-if="!row.entity.plantcd"></div>'
+        cellTemplate: '<div ng-if="row.entity.Plant_Code" class="tcenter">{{row.entity.Plant_Code}}</div><div ng-if="!row.entity.Plant_Code"></div>'
     };
     var Partdesccolumn = {
         name: 'materialdesc',
@@ -199,10 +192,10 @@ app.controller('HomeController', function ($scope, $http, $rootScope, $mdDialog,
         width: 200,
         enableFiltering: true,
         headerCellClass: $scope.highlightFilteredHeader,
-        filter: {
-            condition: $scope.filterPartDesc
-        },
-        cellTemplate: '<div ng-if="row.entity.materialdesc" class="tcenter">{{row.entity.materialdesc}}</div><div ng-if="!row.entity.materialdesc"></div>'
+        //filter: {
+        //    condition: $scope.filterPartDesc
+        //},
+        cellTemplate: '<div ng-if="row.entity.Part_Description" class="tcenter">{{row.entity.Part_Description}}</div><div ng-if="!row.entity.Part_Description"></div>'
     };
     var stdcostcolumn = {
         name: 'stdCost', displayName: 'Standard Cost', width: 100,
@@ -211,52 +204,31 @@ app.controller('HomeController', function ($scope, $http, $rootScope, $mdDialog,
         filter: {
             condition: uiGridConstants.filter.SELECT,
         },
-        cellTemplate: '<div ng-if="row.entity.stdCost" class="tcenter">{{row.entity.stdCost}}</div><div ng-if="!row.entity.stdCost"></div>'
+        cellTemplate: '<div ng-if="row.entity.Standard_Cost" class="tcenter">{{row.entity.Standard_Cost}}</div><div ng-if="!row.entity.Standard_Cost"></div>'
     };
     var material_costcolumn = {
         name: 'material_cost', displayName: 'Material Cost', width: 100,
-        enableFiltering: false,
         headerCellClass: $scope.highlightFilteredHeader,
-        filter: {
-            condition: uiGridConstants.filter.SELECT,
-        },
-        cellTemplate: '<div ng-if="row.entity.MaterialCost" class="tcenter">{{row.entity.MaterialCost}}</div><div ng-if="!row.entity.MaterialCost"></div>'
+        cellTemplate: '<div ng-if="row.entity.Material_Cost" class="tcenter">{{row.entity.Material_Cost}}</div><div ng-if="!row.entity.Material_Cost"></div>'
     };
     var movingavgcostcolumn = {
         name: 'movingavgcost', displayName: 'Moving AVG Cost', width: 100,
-        enableFiltering: false,
+
         headerCellClass: $scope.highlightFilteredHeader,
-        filter: {
-            condition: uiGridConstants.filter.SELECT,
-        },
-        cellTemplate: '<div ng-if="row.entity.movingavgcost" class="tcenter">{{row.entity.movingavgcost}}</div><div ng-if="!row.entity.movingavgcost"></div>'
+ 
+        cellTemplate: '<div ng-if="row.entity.Moving_Average_Cost" class="tcenter">{{row.entity.Moving_Average_Cost}}</div><div ng-if="!row.entity.Moving_Average_Cost"></div>'
     };
     var gross_demand_13column = {
         name: 'gross_demand_13', displayName: 'Gross Demand - 13 week', width: 100,
-        enableFiltering: false,
-        headerCellClass: $scope.highlightFilteredHeader,
-        filter: {
-            condition: uiGridConstants.filter.SELECT,
-        },
-        cellTemplate: '<div ng-if="row.entity.GrossDemand13week" class="tcenter">{{row.entity.GrossDemand13week}}</div><div ng-if="!row.entity.GrossDemand13week"></div>'
+        cellTemplate: '<div ng-if="row.entity.Gross_Demand_13_week" class="tcenter">{{row.entity.Gross_Demand_13_week}}</div><div ng-if="!row.entity.Gross_Demand_13_week"></div>'
     };
     var gross_demand_26column = {
         name: 'gross_demand_26', displayName: 'Gross Demand - 26 week', width: 100,
-        enableFiltering: false,
-        headerCellClass: $scope.highlightFilteredHeader,
-        filter: {
-            condition: uiGridConstants.filter.SELECT,
-        },
-        cellTemplate: '<div ng-if="row.entity.GrossDemand26week" class="tcenter">{{row.entity.GrossDemand26week}}</div><div ng-if="!row.entity.GrossDemand26week"></div>'
+        cellTemplate: '<div ng-if="row.entity.Gross_Demand_26_week" class="tcenter">{{row.entity.Gross_Demand_26_week}}</div><div ng-if="!row.entity.Gross_Demand_26_week"></div>'
     };
     var gross_demand_52column = {
         name: 'gross_demand_52', displayName: 'Gross Demand - 52 week', width: 100,
-        enableFiltering: false,
-        headerCellClass: $scope.highlightFilteredHeader,
-        filter: {
-            condition: uiGridConstants.filter.SELECT,
-        },
-        cellTemplate: '<div ng-if="row.entity.GrossDemand52week" class="tcenter">{{row.entity.GrossDemand52week}}</div><div ng-if="!row.entity.GrossDemand52week"></div>'
+        cellTemplate: '<div ng-if="row.entity.Gross_Demand_52_week" class="tcenter">{{row.entity.Gross_Demand_52_week}}</div><div ng-if="!row.entity.Gross_Demand_52_week"></div>'
     };
     var materialstatus_column = {
         name: 'materialstatus',
@@ -284,23 +256,23 @@ app.controller('HomeController', function ($scope, $http, $rootScope, $mdDialog,
 
 
         console.log(checkedfields);
-       // $scope.gridOptions.columnDefs = [];
-        //var columnlist = [PARTColumn, Partdesccolumn, orgColumn];
+        $scope.gridOptions.columnDefs = [];
+        var columnlist = [PARTColumn, Partdesccolumn, orgColumn];
         if (checkedfields.indexOf("Material Attribute") !== -1) {
-            //columnlist.push(materialstatus_column);
+            columnlist.push(materialstatus_column);
 
             $scope.selectedfields += ',materialstatus Material_Attribute '
         };
         if (checkedfields.indexOf("Cost Details") !== -1) {
-            //columnlist.push(material_costcolumn);
-            //columnlist.push(stdcostcolumn);
-            //columnlist.push(movingavgcostcolumn);
+            columnlist.push(material_costcolumn);
+            columnlist.push(stdcostcolumn);
+            columnlist.push(movingavgcostcolumn);
             $scope.selectedfields += ', MaterialCost Material_Cost,stdcost Standard_Cost,movingavgcost Moving_Average_Cost'
         };
         if (checkedfields.indexOf("Gross Demand") !== -1) {
-            //columnlist.push(gross_demand_13column);
-            //columnlist.push(gross_demand_26column);
-            //columnlist.push(gross_demand_52column);
+            columnlist.push(gross_demand_13column);
+            columnlist.push(gross_demand_26column);
+            columnlist.push(gross_demand_52column);
             $scope.selectedfields += ',GrossDemand13week Gross_Demand_13_week,GrossDemand26week Gross_Demand_26_week,GrossDemand52week Gross_Demand_52_week'
         };
         
@@ -324,7 +296,7 @@ app.controller('HomeController', function ($scope, $http, $rootScope, $mdDialog,
 
             $scope.selectedfields += ',minimumlotsize Minimum_Lot_Size,fixdlotsize Fixed_Lot_Size,plnglotsize Planning_Lot_Size'
         };
-       // $scope.gridheaders = columnlist
+        $scope.gridheaders = columnlist
         
     };
    
@@ -376,8 +348,8 @@ app.controller('HomeController', function ($scope, $http, $rootScope, $mdDialog,
                     }).then(function (response) {
                         console.log(response, 'resPOST');
                         console.log(response.data);
-                        //$scope.gridOptions.columnDefs = $scope.gridheaders;
-                        $scope.gridOptions.columnDefs = [];
+                        $scope.gridOptions.columnDefs = $scope.gridheaders;
+                        //$scope.gridOptions.columnDefs = [];
                         $scope.gridOptions.data = [];
                         $scope.gridOptions.data = angular.fromJson(response.data);
                         $scope.loadingstatus = false;
@@ -425,8 +397,12 @@ app.controller('HomeController', function ($scope, $http, $rootScope, $mdDialog,
 
     };
     $scope.downloadExcel = function () {
+        var ws = XLSX.utils.json_to_sheet(JSON.parse(angular.toJson($scope.gridOptions.data), 1));
+        var wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws);
 
-        $scope.gridApi.exporter.excelExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
+        XLSX.writeFile(wb, 'reports.xlsx');
+        //$scope.gridApi.exporter.excelExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
        // alasql('SELECT * INTO XLSX("john.xlsx",{headers:true}) FROM ?', [$scope.gridOptions.data]);
     };
     });

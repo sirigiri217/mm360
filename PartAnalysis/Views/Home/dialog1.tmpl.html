@@ -1,0 +1,106 @@
+<md-dialog aria-label="Part Number" ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{name}} - {{id}} {{space}}({{orgCode}})</h2>
+                <!-- <h3 style="float:right">Organization code - {{orgCode}}</h3> -->
+                <span flex></span>
+                <!-- <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button> -->
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <!-- <div class="md-dialog-content" ng-show="!noData"> -->
+                    <div class="md-dialog-content" >
+                <md-content layout="row" layout-wrap >
+                    <md-card>
+                        <md-card-title>
+                            <md-card-title-text style="text-align: center;">
+                                    <span class="md-headline">Frozen Cost</span>
+                                    <span class="md-subhead" style="font-size: 18px;">{{frozen_cost}}</span>
+                                </md-card-title-text>
+                    </md-card-title>
+                </md-card>
+                    <!-- <md-card ng-repeat="item in newCards" flex-xs="100" flex-sm="50" flex-md="50" flex="20" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}"
+                        md-theme-watch style="border:1px solid #F1F1F1; color: #1BBC9B">
+                        <md-card-title>
+                            <md-card-title-text style="text-align: center;">
+                                <span class="md-headline">{{item.label}}</span>
+                                <span class="md-subhead" style="font-size: 18px;">{{item.value}}</span>
+                            </md-card-title-text>
+                        </md-card-title>
+                    </md-card> -->
+                </md-content>
+                <md-content layout="row" layout-wrap ng-show="name == 'Part Number'">
+
+                    <md-content class="md-padding" layout="column" flex="20">
+                        <md-card ng-repeat="item in newCards" flex-xs="100" flex-sm="50" flex-md="50" flex="20" md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}"
+                            md-theme-watch style="border:1px solid #F1F1F1; color: #1BBC9B">
+                            <md-card-title>
+                                <md-card-title-text style="text-align: center;">
+                                    <span class="md-headline">{{item.label}}</span>
+                                    <span class="md-subhead" style="font-size: 18px;">{{item.value}}</span>
+                                </md-card-title-text>
+                            </md-card-title>
+                        </md-card>
+                    </md-content>
+                    <md-content class="md-padding" layout="column" flex="80">
+                        <div cg-busy="{promise:chartLoading,message:'Loading Charts...'}" style="min-height: 400px">
+                            <div ng-show="!chartInvData">
+                               
+                                <nvd3 options="inventory_options" data="inventory_data"></nvd3>
+                            </div>
+                            <div ng-show="chartInvData"> 
+                              <h3> Inventory Stock Details </h3>
+                              No Data Available 
+                            </div>
+                            <div ng-show="!chartPegData">
+                                
+                                <nvd3 options="pegging_options" data="pegging_data"></nvd3>
+                            </div>
+                            <div ng-show="chartPegData"> 
+                              <h3> Pegging Demand Trend </h3>
+                              No Data Available 
+                              </div>
+                            <div sty>
+                              <!-- <h4 style="border-bottom: 0.01px solid rgb(204, 204, 204);"> Vendor List </h4> -->
+                                <table class="vendor-list" ng-model ="dataModel">
+                                  <thead>
+                                    <tr>
+                                      <th> Planner Name </th>
+                                      <th> Net Price </th>
+                                    </tr>
+                                  </thead>
+                                  <!-- <tbody ng-show="vendors.length > 0"> -->
+                                        <tbody>
+                                    <tr ng-repeat="item in dataModel">
+                                      <td>{{item.planner_name}}</td>
+                                      <td>{{item.planner_name}}</td>
+                                    </tr>
+                                  </tbody>
+                                  <!-- <tbody ng-show="vendors.length == 0"> -->
+                                      <tbody>
+                                    <tr>
+                                      <td colspan="2">No Data Available!</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-content>
+
+            </div>
+            <!-- <md-content class="md-padding" layout="row" layout-wrap ng-show="noData">
+                <div class="noData">No data available!</div>
+            </md-content> -->
+
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="hide()" style="margin-right:20px;">
+                Close
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

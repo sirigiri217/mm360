@@ -307,6 +307,12 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ui-grid.js" />
+    <Content Include="Scripts\xls-sheet\jszip.js" />
+    <Content Include="Scripts\xls-sheet\SheetJS-angular.js" />
+    <Content Include="Scripts\xls-sheet\shim.min.js" />
+    <Content Include="Scripts\xls-sheet\xlsx.core.min.js" />
+    <Content Include="Scripts\xls-sheet\xlsx.js" />
+    <Content Include="Views\Home\dialog1.tmpl.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
